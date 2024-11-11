@@ -10,6 +10,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { HeaderComponent } from './header/header.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, HeaderComponent],
@@ -19,7 +21,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     BrowserAnimationsModule,
     MatButtonModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
