@@ -1,6 +1,6 @@
 <div class="grid place-content-center mt-20">
     <h1>Inscription</h1>
-
+    <app-error-message [errorMessage]="errorMessage"></app-error-message>
     <form class="grid " [formGroup]="form" (ngSubmit)="submit()">
         <div class="">
         <p>Nom d'utilisateur</p>

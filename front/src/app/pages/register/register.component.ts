@@ -13,7 +13,7 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class RegisterComponent implements OnInit {
 
-  public onError = false;
+  public errorMessage = "";
 
   public form = this.fb.group({
     email: [
@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
         this.sessionService.logIn(response);
         this.router.navigate(['/']);
       },
-      error: error => this.onError = true,
+      error: error => this.errorMessage = error.error.message,
       }
     );
   }
