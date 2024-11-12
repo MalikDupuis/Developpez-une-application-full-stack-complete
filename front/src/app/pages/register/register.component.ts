@@ -27,8 +27,8 @@ export class RegisterComponent implements OnInit {
       '',
       [
         Validators.required,
-        Validators.min(3),
-        Validators.max(20)
+        Validators.minLength(3),
+        Validators.maxLength(20)
       ]
     ],
     
@@ -36,8 +36,8 @@ export class RegisterComponent implements OnInit {
       '',
       [
         Validators.required,
-        Validators.min(3),
-        Validators.max(40)
+        Validators.minLength(3),
+        Validators.maxLength(40)
       ]
     ]
   });

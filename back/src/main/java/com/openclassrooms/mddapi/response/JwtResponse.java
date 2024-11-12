@@ -1,4 +1,4 @@
-package com.openclassrooms.starterjwt.payload.response;
+package com.openclassrooms.mddapi.response;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,20 +7,14 @@ import lombok.Setter;
 @Setter
 public class JwtResponse {
   private String token;
-  private String type = "Bearer";
   private Long id;
-  private String username;
-  private String firstName;
-  private String lastName;
+  private String nom;
+  private String email;
 
-  private Boolean admin;
-
-  public JwtResponse(String accessToken, Long id, String username,String firstName, String lastName, Boolean admin) {
+  public JwtResponse(String accessToken, Long id, String nom, String email) {
     this.token = accessToken;
     this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.username = username;
-    this.admin = admin;
+    this.nom = nom;
+    this.email = email;
   }
 }

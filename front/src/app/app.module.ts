@@ -13,9 +13,19 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { ArticlesComponent } from './pages/articles/articles.component';
+import { ThemeComponent } from './pages/theme/theme.component';
+import { ProfilComponent } from './pages/profil/profil.component';
+import { CreateArticleComponent } from './pages/create-article/create-article.component';
+import { ArticleDetailComponent } from './pages/article-detail/article-detail.component';
+import { ArticleComponent } from './components/article/article.component';
+
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, HeaderComponent, ErrorMessageComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, HeaderComponent, ErrorMessageComponent, ArticlesComponent, ThemeComponent, ProfilComponent, CreateArticleComponent, ArticleDetailComponent, ArticleComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,6 +35,9 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
     MatFormFieldModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatProgressBarModule,
+    MatCardModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
