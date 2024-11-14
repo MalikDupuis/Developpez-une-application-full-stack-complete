@@ -7,14 +7,8 @@ import lombok.Setter;
 @Setter
 public class JwtResponse {
   private String token;
-  private Long id;
-  private String nom;
-  private String email;
 
-  public JwtResponse(String accessToken, Long id, String nom, String email) {
+  public JwtResponse(String accessToken) {
     this.token = accessToken;
-    this.id = id;
-    this.nom = nom;
-    this.email = email;
   }
 }

@@ -44,7 +44,7 @@ public class AuthController {
 
         String token = jwtService.generateToken(loginRequest.getEmail());
 
-        JwtResponse tokenResponse = new JwtResponse(token, user.getId() , user.getNom(), user.getEmail());
+        JwtResponse tokenResponse = new JwtResponse(token);
         return ResponseEntity.ok(tokenResponse);
     }
 
@@ -58,7 +58,7 @@ public class AuthController {
         userService.save(user);
         String token = jwtService.generateToken(user.getEmail());
 
-        JwtResponse tokenResponse = new JwtResponse(token, user.getId() , user.getNom(), user.getEmail());
+        JwtResponse tokenResponse = new JwtResponse(token);
         return ResponseEntity.ok(tokenResponse);
     }
 }
