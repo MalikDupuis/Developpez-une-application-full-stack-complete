@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionInformation } from '../interfaces/sessionInformation.interface';
+import { SessionService } from '../services/session.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  public sessionInformation$: Observable<SessionInformation | null>;
+  
+  constructor(private sessionService: SessionService) { 
+    this.sessionInformation$ = this.sessionService.sessionInformation$;
+  }
 
   ngOnInit(): void {
+    
   }
+
+  public getInfo(){
+    console.log(this.sessionService.sessionInformation$)
+  }
+  
 
 }

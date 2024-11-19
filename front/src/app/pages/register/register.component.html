@@ -4,6 +4,11 @@
     <form class="grid " [formGroup]="form" (ngSubmit)="submit()">
         <div class="">
         <p>Nom d'utilisateur</p>
+        <div *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched">
+            <small *ngIf="form.get('nom')?.errors?.['required']">Le nom est requis.</small>
+            <small *ngIf="form.get('nom')?.errors?.['minlength']">Le nom doit comporter au moins 3 caractères.</small>
+            <small *ngIf="form.get('nom')?.errors?.['maxlength']">Le nom ne peut pas dépasser 20 caractères.</small>
+          </div>
         <mat-form-field class="-mt-5" appearance="outline">
             <input matInput formControlName="nom">
         </mat-form-field>
@@ -12,6 +17,10 @@
     </div>
     <div>
         <p>Adresse e-mail</p>
+        <div *ngIf="form.get('email')?.invalid && form.get('password')?.touched">
+            <small *ngIf="form.get('email')?.errors?.['required']">Le mail est requis.</small>
+            <small *ngIf="form.get('email')?.errors?.['email']">Entrer une adresse email valide.</small>
+          </div>
         <mat-form-field class="-mt-5" appearance="outline">
             <input matInput formControlName="email">
         </mat-form-field>
@@ -19,13 +28,17 @@
 
     <div>
         <p>Mot de passe</p>
+        <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+            <small *ngIf="form.get('password')?.errors?.['required']">Le mot de passe est requis.</small>
+            <small *ngIf="form.get('password')?.errors?.['minlength']">Le mot de passe doit comporter au moins 3 caractères.</small>
+            <small *ngIf="form.get('password')?.errors?.['maxlength']">Le mot de passe ne peut pas dépasser 40 caractères.</small>
+          </div>
         <mat-form-field class="-mt-5" appearance="outline">
             <input matInput formControlName="password">
         </mat-form-field>
     </div>
 
-    <button mat-flat-button type="submit">S'inscrire</button>
-
+    <button mat-flat-button [disabled]="form.invalid" type="submit">S'inscrire</button>
 
     </form>
 

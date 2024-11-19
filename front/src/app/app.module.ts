@@ -11,7 +11,7 @@ import { HeaderComponent } from './header/header.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
 import { ArticlesComponent } from './pages/articles/articles.component';
 import { ThemeComponent } from './pages/theme/theme.component';
@@ -23,6 +23,7 @@ import { ArticleComponent } from './components/article/article.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, HeaderComponent, ErrorMessageComponent, ArticlesComponent, ThemeComponent, ProfilComponent, CreateArticleComponent, ArticleDetailComponent, ArticleComponent],
@@ -39,7 +40,7 @@ import {MatChipsModule} from '@angular/material/chips';
     MatCardModule,
     MatChipsModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

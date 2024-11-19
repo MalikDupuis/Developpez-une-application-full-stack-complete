@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { LoginRequest } from '../interfaces/loginRequest.interface';
 import { RegisterRequest } from '../interfaces/registerRequest.interface';
 import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
+import { TokenRequest } from '../interfaces/tokenRequest.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,15 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public register(registerRequest: RegisterRequest): Observable<SessionInformation> {
-    return this.httpClient.post<SessionInformation>(`${this.pathService}/register`, registerRequest);
+  public register(registerRequest: RegisterRequest): Observable<TokenRequest> {
+    return this.httpClient.post<TokenRequest>(`${this.pathService}/register`, registerRequest);
   }
 
-  public login(loginRequest: LoginRequest): Observable<SessionInformation> {
-    return this.httpClient.post<SessionInformation>(`${this.pathService}/login`, loginRequest);
+  public login(loginRequest: LoginRequest): Observable<TokenRequest> {
+    return this.httpClient.post<TokenRequest>(`${this.pathService}/login`, loginRequest);
+  }
+
+  public me(token: String): Observable<SessionInformation> {
+    return this.httpClient.post<SessionInformation>(`${this.pathService}/me`, token);
   }
 }

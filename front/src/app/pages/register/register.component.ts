@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterRequest } from 'src/app/interfaces/registerRequest.interface';
 import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
+import { TokenRequest } from 'src/app/interfaces/tokenRequest.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { SessionService } from 'src/app/services/session.service';
 
@@ -54,11 +55,13 @@ export class RegisterComponent implements OnInit {
   public submit(): void {
     const registerRequest = this.form.value as RegisterRequest;
     this.authService.register(registerRequest).subscribe({
-      next: (response: SessionInformation) => {
+      next: (response: TokenRequest) => {
         this.sessionService.logIn(response);
         this.router.navigate(['/']);
       },
-      error: error => this.errorMessage = error.error.message,
+      error: error => {
+  this.errorMessage = error?.error?.message || 'Une erreur est survenue lors de l’inscription.';
+}
       }
     );
   }

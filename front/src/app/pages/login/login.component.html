@@ -16,7 +16,7 @@
             <input matInput formControlName="password">
         </mat-form-field>
     </div>
-    <button mat-flat-button>Se connecter</button>
+    <button mat-flat-button [disabled]="form.invalid" type="submit">Se connecter</button>
 
 
     </form>
