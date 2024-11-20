@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
 import { ArticlesComponent } from './pages/articles/articles.component';
-import { ThemeComponent } from './pages/theme/theme.component';
+import { ThemesComponent } from './pages/themes/themes.component';
 import { ProfilComponent } from './pages/profil/profil.component';
 import { CreateArticleComponent } from './pages/create-article/create-article.component';
 import { ArticleDetailComponent } from './pages/article-detail/article-detail.component';
@@ -24,9 +24,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { ThemeComponent } from './components/theme/theme.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, HeaderComponent, ErrorMessageComponent, ArticlesComponent, ThemeComponent, ProfilComponent, CreateArticleComponent, ArticleDetailComponent, ArticleComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, HeaderComponent, ErrorMessageComponent, ArticlesComponent, ThemeComponent, ProfilComponent, CreateArticleComponent, ArticleDetailComponent, ArticleComponent, ThemesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

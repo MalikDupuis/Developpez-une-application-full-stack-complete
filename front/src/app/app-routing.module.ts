@@ -4,7 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfilComponent } from './pages/profil/profil.component';
-import { ThemeComponent } from './pages/theme/theme.component';
+import { ThemesComponent } from './pages/themes/themes.component';
 import { CreateArticleComponent } from './pages/create-article/create-article.component';
 import { ArticlesComponent } from './pages/articles/articles.component';
 import { ArticleDetailComponent } from './pages/article-detail/article-detail.component';
@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'articleDetail', component: ArticleDetailComponent },
   { path: 'articles', component: ArticlesComponent },
   { path: 'createArticle', component: CreateArticleComponent },
-  { path: 'theme', component: ThemeComponent },
+  { path: 'theme', component: ThemesComponent },
   { path: 'profil', component: ProfilComponent },
 ];
 
