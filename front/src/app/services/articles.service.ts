@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { ArticleRequest } from '../interfaces/articleRequest.interface';
+import { Article } from '../interfaces/article.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class ArticleService {
     return this.httpClient.post<User>(this.pathService, articleRequest);
   }
 
-  public getAll(): Observable<User> {
-    return this.httpClient.get<User>(`${this.pathService}`);
+  public getAll(userId: number): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(`${this.pathService}/${userId}`);
   }
 
 

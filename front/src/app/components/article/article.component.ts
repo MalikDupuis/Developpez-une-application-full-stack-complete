@@ -10,8 +10,8 @@ import {ChangeDetectionStrategy} from '@angular/core';
 export class ArticleComponent implements OnInit {
 
   @Input() date!: string;
-  @Input() contenu!: string;
-  @Input() auteur!: string;
+  @Input() content!: string;
+  @Input() author!: string;
 
   constructor() { }
 

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 
 @Component({
   selector: 'app-theme',
@@ -9,10 +10,18 @@ export class ThemeComponent implements OnInit {
 
   @Input() title!: string;
   @Input() description!: string;
+
+  @Output() selectTitle = new EventEmitter<string>();
+
+  public emitTitle() {
+    this.selectTitle.emit(this.title);
+  }
   
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  
 
 }

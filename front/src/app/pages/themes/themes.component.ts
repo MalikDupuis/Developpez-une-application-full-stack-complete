@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
 import { Theme } from 'src/app/interfaces/theme.interface';
+import { SubscriptionService } from 'src/app/services/subscription.service';
+import { SessionService } from 'src/app/services/session.service';
+import { SubscriptionRequest } from 'src/app/interfaces/subscriptionRequest.interface';
 
 @Component({
   selector: 'app-themes',
@@ -18,9 +23,35 @@ export class ThemesComponent implements OnInit {
     { id: 7, title: "Gestion de projet et DevOps", description: 'Introduction à l\'IA' }
   ];
   
-  constructor() { }
+  public sessionInformation$: Observable<SessionInformation | null>;
+  public subscriptionRequest: SubscriptionRequest = {
+    theme: 'Développement logiciel',
+    userId: 1
+  };
+  
+  constructor(private sessionService: SessionService,
+              private subscriptionService: SubscriptionService
+  ) { 
+    this.sessionInformation$ = this.sessionService.sessionInformation$;
+  }
 
   ngOnInit(): void {
+    this.sessionInformation$.subscribe((sessionInfo) => {
+      console.log('Valeur de sessionInformation$', sessionInfo);
+    });
   }
+
+  subscribe(title: string) {
+    
+        
+        
+          this.subscriptionService.subscribe(this.subscriptionRequest).subscribe({
+            next: () => console.log('Participation réussie'),
+            error: (err) => console.error('Erreur lors de la participation', err),
+          });
+        
+      
+  }
+  
 
 }

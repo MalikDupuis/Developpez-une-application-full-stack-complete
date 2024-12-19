@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Article } from 'src/app/interfaces/article.interface';
+import { ArticleService } from 'src/app/services/articles.service';
 
 @Component({
   selector: 'app-articles',
@@ -7,15 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArticlesComponent implements OnInit {
 
-  constructor() { }
+  public articles$!: Observable<Article[]> | null;
+
+  constructor(private articlesService: ArticleService) { }
 
   ngOnInit(): void {
+    this.articles$ = this.articlesService.getAll(12);
   }
-
-  public date = "fezfez";
-  public auteur = "fezfez";
-  public contenu = `The Chihuahua is a Mexican breed of toy dog. It is named for the
-  Mexican state of Chihuahua and is among the smallest of all dog breeds. It is
-  usually kept as a companion animal or for showing.`;
 
 }
