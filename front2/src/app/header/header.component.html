@@ -1,0 +1,10 @@
+<div class="static">
+<img class="size-40 mt-3 ml-20 " src="assets/logo.png" alt="logo" />
+ 
+<div class="border-solid border border-black"></div>
+<div *ngIf="sessionInformation$ | async as sessionInfo">
+    <span>Bonjour, {{ sessionInfo.nom }} !</span>
+  </div>
+</div>
+
+<button (click)="getInfo()">fezfezfez</button>

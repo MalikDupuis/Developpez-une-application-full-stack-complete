@@ -1,0 +1,24 @@
+<div class="grid place-content-center mt-20">
+    <h1>Se connecter</h1>
+    <app-error-message [errorMessage]="errorMessage"></app-error-message>
+    <form class="grid " [formGroup]="form" (ngSubmit)="submit()">
+        <div class="">
+        <p>E-mail ou nom d'utilisateur</p>
+        <mat-form-field class="-mt-5" appearance="outline">
+            <input matInput formControlName="email">
+        </mat-form-field>
+
+        
+    </div>
+    <div>
+        <p>Mot de passe</p>
+        <mat-form-field class="-mt-5" appearance="outline">
+            <input matInput formControlName="password">
+        </mat-form-field>
+    </div>
+    <button mat-flat-button [disabled]="form.invalid" type="submit">Se connecter</button>
+
+
+    </form>
+
+</div>

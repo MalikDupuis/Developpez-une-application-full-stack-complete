@@ -6,6 +6,7 @@ import com.openclassrooms.mddapi.requests.LoginRequest;
 import com.openclassrooms.mddapi.requests.RegisterRequest;
 import com.openclassrooms.mddapi.response.MessageResponse;
 import com.openclassrooms.mddapi.response.JwtResponse;
+import com.openclassrooms.mddapi.response.UserInformationResponse;
 import com.openclassrooms.mddapi.services.JWTService;
 import com.openclassrooms.mddapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> getToken(@RequestBody LoginRequest loginRequest) {
+        System.out.println("token");
         User user = userService.findByEmail(loginRequest.getEmail());
 
         if(user == null) {
@@ -60,5 +62,23 @@ public class AuthController {
 
         JwtResponse tokenResponse = new JwtResponse(token);
         return ResponseEntity.ok(tokenResponse);
+    }
+
+    @PostMapping("/me")
+    public ResponseEntity<?> me(@RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            String token = authorizationHeader.substring(7);
+            if (jwtService.validateToken(token)) {
+                String email = jwtService.extractEmailFromToken(token);
+                User user = userService.findByEmail(email);
+                if (user != null) {
+                    UserInformationResponse userInformationResponse = new UserInformationResponse(user.getId(), user.getNom(), user.getEmail());
+                    return ResponseEntity.ok(userInformationResponse);
+                }
+            }
+        }
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Error: Token incorrect!!"));
     }
 }

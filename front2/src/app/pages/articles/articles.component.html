@@ -1,0 +1,2 @@
+<button mat-flat-button>Créer un article</button>
+<app-article *ngFor="let article of (articles$ | async)" [date]="article.createdAt" [content]="article.content" [author]="article.author"></app-article>
