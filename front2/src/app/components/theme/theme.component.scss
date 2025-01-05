@@ -1,11 +1,9 @@
 .example-card {
-    max-width: 600px;
-    min-width: 600px;
-
-    max-height: 200px;
-    min-height: 200px;
-    background-color: gray;
-  }
+  background-color: rgb(180, 170, 170);
+  width: 90%;
+  height: 300px;
+  border-radius: 10px;
+}
   
   .example-card-footer {
     padding: 16px;
@@ -14,4 +12,6 @@
     background-color: #7d31c5;
     color: white;
     justify-content: center;
+    
 }
+

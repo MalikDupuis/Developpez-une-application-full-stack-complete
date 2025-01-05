@@ -1,1 +1,68 @@
-<p>profil works!</p>
+<div class="flex flex-col items-center justify-center gap-6 p-4 mt-20">
+    <h1 class="text-xl font-bold text-gray-950 text-center">Profil utilisateur</h1>
+    <div class="p-6 rounded-lg w-96">
+      <app-error-message [errorMessage]="errorMessage"></app-error-message>
+      <form class="grid gap-4" [formGroup]="form" (ngSubmit)="submit()">
+        <div>
+          
+          <input
+            id="nom"
+            type="text"
+            formControlName="nom"
+            class="w-full border border-purple-500 rounded-lg p-2 focus:ring-purple-500 focus:border-purple-500"
+            [placeholder]="(sessionInformation$ | async)?.nom || 'Utilisateur inconnu'"
+          />
+        </div>
+        <div>
+          
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="w-full border border-purple-500 rounded-lg p-2 focus:ring-purple-500 focus:border-purple-500"
+            [placeholder]="(sessionInformation$ | async)?.email || 'Utilisateur inconnu'"
+          />
+        </div>
+        <div class="grid gap-2">
+          <button
+            type="submit"
+            class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-2 rounded-lg w-2/4 mx-auto"
+          >
+            Sauvegarder
+          </button>
+          <button
+            type="button"
+            class="text-red-600 hover:text-red-700 font-medium"
+            (click)="logout()"
+          >
+            Se déconnecter
+          </button>
+        </div>
+      </form>
+    </div>
+  
+    <div class="w-full max-w-4xl">
+      <hr class="my-4 border-gray-300" />
+      <h1 class="text-xl font-bold text-gray-950 mb-4 text-center">Abonnements</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div
+          class="bg-gray-100 border border-gray-300 rounded-lg p-4 shadow-sm flex flex-col justify-between"
+          *ngFor="let theme of (themes$ | async)"
+        >
+          <h2 class="font-semibold text-lg text-gray-800 mb-2">{{ theme.theme }}</h2>
+          <p class="text-sm text-gray-600 mb-4">
+            Description: lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard...
+            
+          </p>
+          <button
+            class="bg-purple-500 hover:bg-purple-500 text-white font-medium py-2 px-4 rounded-lg"
+            (click)="selectTheme(theme.id)"
+          >
+            Se désabonner
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

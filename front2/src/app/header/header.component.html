@@ -1,10 +1,14 @@
 <div class="static">
-<img class="size-40 mt-3 ml-20 " src="assets/logo.png" alt="logo" />
- 
-<div class="border-solid border border-black"></div>
-<div *ngIf="sessionInformation$ | async as sessionInfo">
-    <span>Bonjour, {{ sessionInfo.nom }} !</span>
+  <div class="flex flex-row">
+    <img class="size-40 mt-3 ml-20 " src="assets/logo.png" alt="logo" />
+    <div *ngIf="sessionInformation$ | async as sessionInfo" class=" mt-20 ml-6">
+      <a class="mr-6" routerLink="/articles">Articles</a>
+      <a class="mr-6" routerLink="/theme">Thèmes</a>
+      <a class="mr-6" routerLink="/profil">
+        <mat-icon style="font-size: 40px;color: #6d6766b7; width: auto; height: auto;" fontIcon="account_circle"></mat-icon>
+      </a>
+    </div>
   </div>
+  <div class="border-solid border border-black"></div>
+  
 </div>
-
-<button (click)="getInfo()">fezfezfez</button>

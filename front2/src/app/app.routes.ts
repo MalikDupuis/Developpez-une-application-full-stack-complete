@@ -11,10 +11,10 @@ import { UnauthGuard } from './guards/unauth.guard';
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent , canActivate: [UnauthGuard]},
-    { path: 'login', component: LoginComponent , canActivate: [UnauthGuard]},
-    { path: 'register', component: RegisterComponent , canActivate: [UnauthGuard]},
-    { path: 'articleDetail', component: ArticleDetailComponent },
+    { path: '', component: HomeComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'articleDetail/:articleId', component: ArticleDetailComponent },
     { path: 'articles', component: ArticlesComponent},
     { path: 'createArticle', component: CreateArticleComponent },
     { path: 'theme', component: ThemesComponent },

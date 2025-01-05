@@ -1,12 +1,16 @@
-<mat-card class="example-card" appearance="outlined">
-    <mat-card-header>
-      <mat-card-title>{{title}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        
-      <p>{{description}}</p>
-    </mat-card-content>
-    <div class="flex justify-center">
-    <button mat-flat-button (click)="emitTitle()">S'abonner</button>
+<mat-card class="example-card bg-gray-100 rounded-lg shadow-md p-4">
+  <mat-card-header>
+    <mat-card-title style="font-weight: 700;" class="text-lg font-bold">{{title}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p class="text-gray-600">Description: {{description}}</p>
+  </mat-card-content>
+  <div class="flex justify-center mt-4">
+    <button 
+      mat-flat-button 
+      class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700"
+      (click)="emitTitle()">
+      S'abonner
+    </button>
   </div>
-  </mat-card>
+</mat-card>

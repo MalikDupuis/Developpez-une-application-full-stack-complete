@@ -15,7 +15,8 @@ export class ArticleComponent implements OnInit {
   @Input() date!: string;
   @Input() content!: string;
   @Input() author!: string;
-
+  @Input() title!: string;
+  
   constructor() { }
 
   ngOnInit(): void {

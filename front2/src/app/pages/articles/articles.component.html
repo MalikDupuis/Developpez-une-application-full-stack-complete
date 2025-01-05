@@ -1,2 +1,18 @@
-<button mat-flat-button>Créer un article</button>
-<app-article *ngFor="let article of (articles$ | async)" [date]="article.createdAt" [content]="article.content" [author]="article.author"></app-article>
+<button 
+  class="mt-10 mx-auto block rounded-md bg-indigo-600 p-2 text-white sm:ml-6 sm:mx-0" 
+  mat-flat-button 
+  (click)="redirectToCreateAnArticle()">
+  Créer un article
+</button>
+
+
+<div class="grid grid-cols-1 gap-2 sm:grid-cols-2 p-4 justify-center items-center">
+    <app-article
+      *ngFor="let article of (articles$ | async)"
+      [date]="article.created"
+      [content]="article.content"
+      [author]="article.author"
+      [title]="article.title"
+    ></app-article>
+  </div>
+  
