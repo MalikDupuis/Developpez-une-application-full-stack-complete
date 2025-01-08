@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { Article } from '../../interfaces/article.interface';
 import { ArticleService } from '../../services/articles.service';
 import { ArticleComponent } from '../../components/article/article.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { SessionInformation } from '../../interfaces/sessionInformation.interface';
+import { SessionService } from '../../services/session.service';
 
 
 @Component({
@@ -17,16 +19,35 @@ import { Router } from '@angular/router';
 export class ArticlesComponent implements OnInit {
 
   public articles$!: Observable<Article[]> | null;
+  public sessionInformation$: Observable<SessionInformation | null>;
 
-  constructor(private articlesService: ArticleService,
+  constructor(
+    private sessionService: SessionService,
+    private articlesService: ArticleService,
     private router: Router
-  ) { }
+  ) {
+    this.sessionInformation$ = this.sessionService.sessionInformation$;
+   }
   ngOnInit(): void {
-    this.articles$ = this.articlesService.getAll(21);
+    this.sessionInformation$
+          .pipe(filter((sessionInfo) => sessionInfo !== null)) // Filtrer pour ignorer les valeurs nulles
+          .subscribe((sessionInfo) => {
+            if (sessionInfo) {
+              
+              this.articles$ = this.articlesService.getAll(sessionInfo.userId);
+              console.log('Valeur de sessionInformation$', sessionInfo);
+            }
+          });
+    
+    
   }
 
   redirectToCreateAnArticle() {
     this.router.navigate(['/createArticle']);
+  }
+
+  navigateToArticleDetail(articleId: number) {
+    this.router.navigate(['/articleDetail', articleId]);
   }
 
 }

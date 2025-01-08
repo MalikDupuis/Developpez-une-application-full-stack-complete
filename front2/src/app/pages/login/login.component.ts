@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(loginRequest).subscribe({
       next: (response: TokenRequest) => {
         this.sessionService.logIn(response);
-        this.router.navigate(['/']);
+        this.router.navigate(['/articles']);
       },
       error: error => {
         this.errorMessage = error?.error?.message || 'Une erreur est survenue lors de la connexion.';

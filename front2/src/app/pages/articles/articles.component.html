@@ -9,10 +9,12 @@
 <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 p-4 justify-center items-center">
     <app-article
       *ngFor="let article of (articles$ | async)"
+      (articleClicked)="navigateToArticleDetail($event)"
       [date]="article.created"
       [content]="article.content"
       [author]="article.author"
       [title]="article.title"
+      [id]="article.id"
     ></app-article>
   </div>
   

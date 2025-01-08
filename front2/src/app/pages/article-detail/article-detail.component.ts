@@ -16,12 +16,15 @@ import { CommonModule } from '@angular/common';
 export class ArticleDetailComponent implements OnInit {
 
   public article$!: Observable<Article> | null;
- 
+ public art! : Article;
 
   constructor(private articlesService: ArticleService) { }
 
   ngOnInit() {
-    this.article$ = this.articlesService.getById("1");
+    this.articlesService.getById("1").subscribe((ar: Article)=> {
+      this.art = ar;
+    })
+    //this.article$ = this.articlesService.getById("1");
   }
 
 
