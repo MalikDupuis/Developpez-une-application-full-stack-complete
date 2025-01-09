@@ -1,14 +1,61 @@
-<div class="static">
-  <div class="flex flex-row">
-    <img class="size-40 mt-3 ml-20 " src="assets/logo.png" alt="logo" />
-    <div *ngIf="sessionInformation$ | async as sessionInfo" class=" mt-20 ml-6">
-      <a class="mr-6" routerLink="/articles">Articles</a>
-      <a class="mr-6" routerLink="/theme">Thèmes</a>
-      <a class="mr-6" routerLink="/profil">
-        <mat-icon style="font-size: 40px;color: #6d6766b7; width: auto; height: auto;" fontIcon="account_circle"></mat-icon>
+<div class="relative">
+  <!-- Logo -->
+  <div class="flex justify-between items-center p-4 border-b border-gray-300">
+    <img class="h-10" src="assets/logo.png" alt="logo" />
+
+    <!-- Icône hamburger pour petits écrans -->
+    <div *ngIf="(sessionInformation$ | async)" class="block md:hidden">
+      <button (click)="toggleMenu()" class="text-gray-600 focus:outline-none">
+        <mat-icon fontIcon="menu" class="text-2xl"></mat-icon>
+      </button>
+    </div>
+
+    <!-- Navigation pour écrans larges -->
+    <div
+    *ngIf="(sessionInformation$ | async)$"
+      class="hidden md:flex space-x-4 text-gray-950 items-center"
+    >
+      <a class="mr-6" routerLink="/articles" routerLinkActive="text-purple-600">Articles</a>
+      <a class="mr-6" routerLink="/theme" routerLinkActive="text-purple-600">Thèmes</a>
+      <a class="mr-6" routerLink="/profil" routerLinkActive="text-purple-600">
+        <mat-icon class="icon" fontIcon="account_circle" routerLinkActive="active-icon"></mat-icon>
       </a>
     </div>
   </div>
-  <div class="border-solid border border-black"></div>
-  
+
+  <!-- Menu déroulant pour petits écrans (côté droit) -->
+  <div
+    *ngIf="menuOpen && (sessionInformation$ | async)$"
+    class="fixed top-0 right-0 h-full w-3/4 max-w-xs bg-white shadow-lg z-50 transition-transform transform"
+  >
+    <div *ngIf="(sessionInformation$ | async)" class="flex justify-between items-center p-4 border-b border-gray-300">
+      <p class="text-lg font-bold text-gray-950">Menu</p>
+      <button (click)="toggleMenu()" class="text-gray-600 focus:outline-none">
+        <mat-icon fontIcon="close" class="text-2xl"></mat-icon>
+      </button>
+    </div>
+    <nav class="p-4" *ngIf="(sessionInformation$ | async)$">
+      <a
+        routerLink="/articles"
+        routerLinkActive="text-purple-600"
+        class="block px-4 py-2 text-gray-950 hover:bg-gray-100"
+      >
+        Articles
+      </a>
+      <a
+        routerLink="/theme"
+        routerLinkActive="text-purple-600"
+        class="block px-4 py-2 text-gray-950 hover:bg-gray-100"
+      >
+        Thèmes
+      </a>
+      <a
+        routerLink="/profil"
+        routerLinkActive="text-purple-600"
+        class="absolute bottom-4 right-4 flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full text-gray-950 hover:bg-gray-200"
+      >
+        <mat-icon fontIcon="account_circle" class="icon" routerLinkActive="text-purple-600"></mat-icon>
+      </a>
+    </nav>
+  </div>
 </div>
