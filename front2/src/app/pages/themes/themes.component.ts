@@ -7,6 +7,7 @@ import { SubscriptionService } from '../../services/subscription.service';
 import { SessionService } from '../../services/session.service';
 import { SubscriptionRequest } from '../../interfaces/subscriptionRequest.interface';
 import { ThemeComponent } from '../../components/theme/theme.component';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-themes',
@@ -17,21 +18,15 @@ import { ThemeComponent } from '../../components/theme/theme.component';
 })
 export class ThemesComponent implements OnInit {
   private userId!: number;
+  public themes$!: Observable<Theme[]> | null;
 
-  themes: Theme[] = [
-    { id: 1, title: "Développement logiciel", description: 'Découvrez les technologies et frameworks les plus récents comme Angular, React ou Vue.js, pour créer des applications web rapides et performantes.' },
-    { id: 2, title: "Intelligence artificielle et apprentissage automatique", description: 'Introduction à l\'IA' },
-    { id: 3, title: "Sécurité informatique", description: 'Introduction à l\'IA' },
-    { id: 4, title: "Développement mobile", description: 'Introduction à l\'IA' },
-    { id: 5, title: "Programmation avancée", description: 'Introduction à l\'IA' },
-    { id: 6, title: "Technologies émergentes", description: 'Introduction à l\'IA' },
-    { id: 7, title: "Gestion de projet et DevOps", description: 'Introduction à l\'IA' }
-  ];
+  
 
   public sessionInformation$: Observable<SessionInformation | null>;
   public subscriptionRequest!: SubscriptionRequest; // Déclaration sans valeur initiale
 
   constructor(
+    private themeService: ThemeService,
     private sessionService: SessionService,
     private subscriptionService: SubscriptionService
   ) {
@@ -46,18 +41,19 @@ export class ThemesComponent implements OnInit {
           // Mettre à jour l'ID utilisateur et initialiser subscriptionRequest
           this.userId = sessionInfo.userId;
           this.subscriptionRequest = {
-            theme: '', // Valeur par défaut ou à définir plus tard
+            themeId: -1, // Valeur par défaut ou à définir plus tard
             userId: this.userId
           };
-          console.log('Valeur de sessionInformation$', sessionInfo);
+          this.themes$ = this.themeService.getAll(this.userId);
         }
       });
   }
 
   // Cette méthode est appelée pour sélectionner un thème
-  selectTheme(title: string) {
+  selectTheme(id: number) {
     // Mettre à jour le thème sélectionné dans subscriptionRequest
-    this.subscriptionRequest.theme = title;
+    console.log(id)
+    this.subscriptionRequest.themeId = id;
 
     // Appeler la méthode pour s'abonner au thème
     this.subscribe();
@@ -65,7 +61,7 @@ export class ThemesComponent implements OnInit {
 
   // Méthode pour envoyer la demande d'abonnement
   subscribe() {
-    if (this.subscriptionRequest.theme) {
+    if (this.subscriptionRequest.themeId != -1) {
       this.subscriptionService.subscribe(this.subscriptionRequest).subscribe({
         next: () => console.log('Participation réussie'),
         error: (err) => console.error('Erreur lors de la participation', err),

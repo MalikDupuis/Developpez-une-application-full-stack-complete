@@ -15,8 +15,7 @@ public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    private Theme theme;
+    private long themeId;
     private String title;
     private String author;
     private String content;

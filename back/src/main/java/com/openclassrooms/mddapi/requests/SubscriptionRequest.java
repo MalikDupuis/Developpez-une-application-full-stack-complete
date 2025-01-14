@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class SubscriptionRequest {
     private long userId;
-    private Theme theme;
+    private long themeId;
 }

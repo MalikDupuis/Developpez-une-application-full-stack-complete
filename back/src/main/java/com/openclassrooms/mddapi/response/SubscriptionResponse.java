@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class SubscriptionResponse {
-    private Theme theme;
+    private long themeId;
     private long id;
 }

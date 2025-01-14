@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class ArticleResponse {
-    private Theme theme;
+    private long themeId;
     private String title;
     private String author;
     private String content;

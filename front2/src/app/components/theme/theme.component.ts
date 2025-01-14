@@ -13,11 +13,12 @@ export class ThemeComponent implements OnInit {
 
   @Input() title!: string;
   @Input() description!: string;
+  @Input() id!: number;
 
-  @Output() selectTitle = new EventEmitter<string>();
+  @Output() selectTitle = new EventEmitter<number>();
 
   public emitTitle() {
-    this.selectTitle.emit(this.title);
+    this.selectTitle.emit(this.id);
   }
   
   constructor() { }

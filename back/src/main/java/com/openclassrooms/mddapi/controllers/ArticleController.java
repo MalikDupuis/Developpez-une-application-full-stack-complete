@@ -34,14 +34,25 @@ public class ArticleController {
 
     @GetMapping("/{userId}")
     public List<Article> getArticlesBySubscription(@PathVariable Long userId) {
-        System.out.println(userId);
+        System.out.println("User ID: " + userId);
+
+        // Récupérer les abonnements de l'utilisateur
         List<Subscription> subscriptions = subscriptionRepository.findByUserId(userId);
-        System.out.println(subscriptions);
-        List<Theme> themes = subscriptions.stream().map(Subscription::getTheme).collect(Collectors.toList());
-        System.out.println(themes);
-        System.out.println(articleRepository.findByThemeIn(themes));
-        return articleRepository.findByThemeIn(themes);
+        System.out.println("Subscriptions: " + subscriptions);
+
+        // Extraire les IDs des thèmes des abonnements
+        List<Long> themeIds = subscriptions.stream()
+                .map(Subscription::getThemeId)
+                .collect(Collectors.toList());
+        System.out.println("Theme IDs: " + themeIds);
+
+        // Récupérer et retourner les articles correspondant aux IDs des thèmes
+        List<Article> articles = articleRepository.findByThemeIdIn(themeIds);
+        System.out.println("Articles: " + articles);
+
+        return articles;
     }
+
 
     @GetMapping("/detail/{articleId}")
     public ResponseEntity<ArticleResponse> getArticleById(@PathVariable Long articleId) {
@@ -53,7 +64,7 @@ public class ArticleController {
         ArticleResponse articleResponse = new ArticleResponse();
         articleResponse.setTitle(article.getTitle());
         articleResponse.setContent(article.getContent());
-        articleResponse.setTheme(article.getTheme());
+        articleResponse.setThemeId(article.getThemeId());
         articleResponse.setAuthor(article.getAuthor());
         articleResponse.setCreated(article.getCreated());
         return ResponseEntity.ok(articleResponse);
@@ -67,7 +78,7 @@ public class ArticleController {
         Article article = new Article();
         article.setTitle(articleRequest.getTitle());
         article.setContent(articleRequest.getContent());
-        article.setTheme(articleRequest.getTheme());
+        article.setThemeId(articleRequest.getThemeId());
         article.setAuthor(articleRequest.getAuthor());
         articleService.save(article);
         return ResponseEntity.ok().body(new MessageResponse("Article created successfully"));

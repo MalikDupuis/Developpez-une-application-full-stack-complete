@@ -1,5 +1,5 @@
 export interface SubscriptionRequest {
-    theme: string;
+    themeId: number;
     userId: number;
   }
   

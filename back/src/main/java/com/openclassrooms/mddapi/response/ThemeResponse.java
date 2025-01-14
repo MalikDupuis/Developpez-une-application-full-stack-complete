@@ -1,20 +1,16 @@
-package com.openclassrooms.mddapi.models;
+package com.openclassrooms.mddapi.response;
 
 import lombok.Data;
 
 @Data
-public class Theme {
+public class ThemeResponse {
     private long id;
     private String title;
     private String description;
 
-    public Theme(int id, String title, String description) {
+    public ThemeResponse(long id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
     }
-
-
-
-
 }

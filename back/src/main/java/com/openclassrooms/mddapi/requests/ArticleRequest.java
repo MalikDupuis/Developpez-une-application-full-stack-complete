@@ -9,7 +9,7 @@ import lombok.Setter;
 public class ArticleRequest {
     private String title;
     private String author;
-    private Theme theme;
+    private long themeId;
     private String content;
 
 }

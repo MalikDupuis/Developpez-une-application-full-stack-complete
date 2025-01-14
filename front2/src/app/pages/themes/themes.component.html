@@ -1,5 +1,5 @@
 <div class="flex justify-center">
     <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 p-4 justify-center items-center">
-<app-theme *ngFor="let theme of themes" [title]="theme.title" [description]="theme.description" (selectTitle)="selectTheme($event)" ></app-theme>
+<app-theme *ngFor="let theme of (themes$ | async)" [title]="theme.title" [description]="theme.description" [id]="theme.id" (selectTitle)="selectTheme($event)" ></app-theme>
 </div>
 </div>

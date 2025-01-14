@@ -58,6 +58,7 @@ export class ProfilComponent implements OnInit {
     
   logout() {
     this.sessionService.logOut();
+    this.router.navigate(['/login']);
     }
     
     
@@ -103,7 +104,7 @@ export class ProfilComponent implements OnInit {
   unSubscribe(subscriptionId: number) {
     
       this.subscriptionService.unSubscribe(subscriptionId).subscribe({
-        next: () => console.log('Participation réussie'),
+        next: () => window.location.reload(),
         error: (err) => console.error('Erreur lors de la participation', err),
       });
     

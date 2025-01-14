@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-    List<Article> findByThemeIn(List<Theme> themes);
+    List<Article> findByThemeIdIn(List<Long> themeIds);
+
 
 }
