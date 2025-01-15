@@ -20,13 +20,13 @@ export class SubscriptionService {
     return this.httpClient.post<void>(`${this.pathService}`, subscriptionRequest);
   }
 
-  public unSubscribe(subscriptionId: number): Observable<void> {
+  public unSubscribe(themeId: number, userId: number): Observable<void> {
     console.log("service")
-    return this.httpClient.delete<void>(`${this.pathService}/${subscriptionId}`,);
+    return this.httpClient.delete<void>(`${this.pathService}/${themeId}/${userId}`,);
   }
 
-  public getMy(userId: number): Observable<SubscriptionResponse[]> {
-      return this.httpClient.get<SubscriptionResponse[]>(`${this.pathService}/${userId}`);
+  public getMy(userId: number): Observable<Theme[]> {
+      return this.httpClient.get<Theme[]>(`${this.pathService}/${userId}`);
     }
 
 }

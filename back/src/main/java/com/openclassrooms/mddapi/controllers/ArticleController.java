@@ -1,9 +1,6 @@
 package com.openclassrooms.mddapi.controllers;
 
-import com.openclassrooms.mddapi.models.Article;
-import com.openclassrooms.mddapi.models.Subscription;
-import com.openclassrooms.mddapi.models.Theme;
-import com.openclassrooms.mddapi.models.User;
+import com.openclassrooms.mddapi.models.*;
 import com.openclassrooms.mddapi.repository.ArticleRepository;
 import com.openclassrooms.mddapi.repository.SubscriptionRepository;
 import com.openclassrooms.mddapi.requests.ArticleRequest;
@@ -12,6 +9,8 @@ import com.openclassrooms.mddapi.response.ArticleResponse;
 import com.openclassrooms.mddapi.response.JwtResponse;
 import com.openclassrooms.mddapi.response.MessageResponse;
 import com.openclassrooms.mddapi.services.ArticleService;
+import com.openclassrooms.mddapi.services.CommentaireService;
+import com.openclassrooms.mddapi.services.ThemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +30,12 @@ public class ArticleController {
 
     @Autowired
     private SubscriptionRepository subscriptionRepository;
+
+    @Autowired
+    private CommentaireService commentaireService;
+
+    @Autowired
+    private ThemeService themeService;
 
     @GetMapping("/{userId}")
     public List<Article> getArticlesBySubscription(@PathVariable Long userId) {
@@ -56,22 +61,27 @@ public class ArticleController {
 
     @GetMapping("/detail/{articleId}")
     public ResponseEntity<ArticleResponse> getArticleById(@PathVariable Long articleId) {
-        System.out.println(articleId);
+        System.out.println("articleId :" + articleId);
         Article article = articleRepository.findById(articleId).orElse(null);
         if (article == null) {
             return ResponseEntity.notFound().build();
         }
+        String theme = themeService.getThemeTitleById(article.getThemeId());
+        System.out.println("theme : " + theme);
+        List<Commentaire> comments = commentaireService.getAllCommentairesByArticleId(articleId);
         ArticleResponse articleResponse = new ArticleResponse();
         articleResponse.setTitle(article.getTitle());
         articleResponse.setContent(article.getContent());
-        articleResponse.setThemeId(article.getThemeId());
+        articleResponse.setTheme(theme);
         articleResponse.setAuthor(article.getAuthor());
         articleResponse.setCreated(article.getCreated());
+        articleResponse.setComments(comments);
         return ResponseEntity.ok(articleResponse);
     }
 
     @PostMapping()
     public ResponseEntity<?> createArticle(@RequestBody ArticleRequest articleRequest) {
+        System.out.println(articleRequest.getThemeId());
         if (articleRequest == null) {
             return ResponseEntity.badRequest().body("Invalid request");
         }

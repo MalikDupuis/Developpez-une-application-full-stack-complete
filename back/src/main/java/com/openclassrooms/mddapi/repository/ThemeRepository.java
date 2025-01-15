@@ -3,6 +3,7 @@ package com.openclassrooms.mddapi.repository;
 import com.openclassrooms.mddapi.models.Theme;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +32,26 @@ public class ThemeRepository {
                 .filter(theme -> !ids.contains(theme.getId()))
                 .collect(Collectors.toList());
     }
+
+    public List<Theme> findByIdIn(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            // Si la liste est vide, retourner tous les thèmes
+            return new ArrayList<>();
+        }
+        // Sinon, filtrer les thèmes en excluant ceux dont l'ID est dans la liste
+        return getThemes().stream()
+                .filter(theme -> ids.contains(theme.getId()))
+                .collect(Collectors.toList());
+    }
+
+    public String findById(long id) {
+        return getThemes().stream()
+                .filter(theme -> theme.getId() == id)
+                .map(Theme::getTitle)
+                .findFirst()
+                .orElse(null); // Retourne null si aucun thème ne correspond
+    }
+
 
 
 }

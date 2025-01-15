@@ -47,8 +47,8 @@ export class CreateArticleComponent implements OnInit {
           Validators.required
         ]
       ],
-      theme: [
-        '',
+      themeId: [
+        0,
         [
           Validators.required
         ]
@@ -79,7 +79,7 @@ export class CreateArticleComponent implements OnInit {
     this.articleService.create(articleRequest).subscribe({
       next: (response) => {
         alert(response.message);
-        this.router.navigate(['/']);
+        this.router.navigate(['/articles']);
       },
       error: (error) => {
         this.errorMessage = error?.error?.message || 'Une erreur est survenue lors de la création dun article.';

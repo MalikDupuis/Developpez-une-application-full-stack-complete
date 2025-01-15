@@ -27,7 +27,7 @@ import { SubscriptionRequest } from '../../interfaces/subscriptionRequest.interf
 export class ProfilComponent implements OnInit {
 
 
-  public themes$!: Observable<SubscriptionResponse[]> | null;
+  public themes$!: Observable<Theme[]> | null;
   private userId!: number;
   public errorMessage = "";
   public sessionInformation$: Observable<SessionInformation | null>;
@@ -95,15 +95,15 @@ export class ProfilComponent implements OnInit {
 
 
     // Cette méthode est appelée pour sélectionner un thème
-  selectTheme(subscriptionId: number) {
-    console.log("select" + subscriptionId)
-    this.unSubscribe(subscriptionId);
+  selectTheme(themeId: number) {
+    console.log("select" + themeId)
+    this.unSubscribe(themeId);
   }
 
   // Méthode pour envoyer la demande d'abonnement
-  unSubscribe(subscriptionId: number) {
+  unSubscribe(themeId: number) {
     
-      this.subscriptionService.unSubscribe(subscriptionId).subscribe({
+      this.subscriptionService.unSubscribe(themeId, this.userId).subscribe({
         next: () => window.location.reload(),
         error: (err) => console.error('Erreur lors de la participation', err),
       });

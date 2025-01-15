@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { RegisterRequest } from '../../interfaces/registerRequest.interface';
 import { SessionInformation } from '../../interfaces/sessionInformation.interface';
 import { TokenRequest } from '../../interfaces/tokenRequest.interface';
@@ -11,12 +11,12 @@ import { ErrorMessageComponent } from '../../components/error-message/error-mess
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-register',
   standalone:true,
-  imports:[MatFormFieldModule,ErrorMessageComponent,CommonModule, ReactiveFormsModule, MatInputModule],
+  imports:[MatFormFieldModule,ErrorMessageComponent,CommonModule, ReactiveFormsModule, MatInputModule, MatIconModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })

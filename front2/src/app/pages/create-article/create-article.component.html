@@ -9,19 +9,19 @@
         
         <select
           id="theme"
-          formControlName="theme"
+          formControlName="themeId"
           class="w-full border border-purple-500 rounded-lg p-2 focus:ring-purple-500 focus:border-purple-500"
         >
-        <option value="" selected disabled hidden>Sélectionner un thème</option>
-          <option value="Développement_logiciel">Développement logiciel</option>
-          <option value="Intelligence_artificielle_et_apprentissage_automatique">
+        <option [ngValue]="" selected disabled hidden>Sélectionner un thème</option>
+          <option [ngValue]="1">Développement logiciel</option>
+          <option [ngValue]="2">
             Intelligence artificielle et apprentissage automatique
           </option>
-          <option value="Sécurité_informatique">Sécurité informatique</option>
-          <option value="Développement_mobile">Développement mobile</option>
-          <option value="Programmation_avancée">Programmation avancée</option>
-          <option value="Technologies_émergentes">Technologies émergentes</option>
-          <option value="Gestion_de_projet_et_DevOps">
+          <option [ngValue]="3">Sécurité informatique</option>
+          <option [ngValue]="4">Développement mobile</option>
+          <option [ngValue]="5">Programmation avancée</option>
+          <option [ngValue]="6">Technologies émergentes</option>
+          <option [ngValue]="7">
             Gestion de projet et DevOps
           </option>
         </select>
@@ -48,14 +48,15 @@
           class="w-full border border-purple-500 rounded-lg p-2 focus:ring-purple-500 focus:border-purple-500"
         ></textarea>
       </div>
-  
+  <div class="flex justify-center">
       <button
-        class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg"
+        class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg w-1/2"
         [disabled]="form.invalid"
         type="submit"
       >
         Créer
       </button>
+    </div>
     </form>
   </div>
   

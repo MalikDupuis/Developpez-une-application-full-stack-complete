@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginRequest } from '../../interfaces/loginRequest.interface';
 import { TokenRequest } from '../../interfaces/tokenRequest.interface';
 import { AuthService } from '../../services/auth.service';
@@ -9,11 +9,12 @@ import { MatFormFieldModule} from '@angular/material/form-field';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
   standalone:true,
-  imports:[MatFormFieldModule,ErrorMessageComponent, ReactiveFormsModule, MatInputModule],
+  imports:[MatFormFieldModule,ErrorMessageComponent, ReactiveFormsModule, MatInputModule, MatIconModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })

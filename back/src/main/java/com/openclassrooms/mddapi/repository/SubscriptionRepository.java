@@ -10,4 +10,6 @@ import java.util.List;
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
     List<Subscription> findByUserId(Long userId);
+
+    Subscription findByThemeIdAndUserId(long themeId, long userId);
 }

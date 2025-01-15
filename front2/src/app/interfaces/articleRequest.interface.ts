@@ -1,5 +1,5 @@
 export interface ArticleRequest {
-    theme: string;
+    themeId: number;
     title: string;
     content: string;
     author: string;

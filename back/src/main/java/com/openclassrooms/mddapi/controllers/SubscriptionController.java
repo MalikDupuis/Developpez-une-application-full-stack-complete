@@ -36,42 +36,37 @@ public class SubscriptionController {
     }
 
     @GetMapping("/{userId}")
-    public List<ThemeResponse> getUnsubscribedThemes(@PathVariable long userId) {
-        // Récupérer tous les abonnements de l'utilisateur
+    public List<Theme> getUnsubscribedThemes(@PathVariable Long userId) {
+        // Récupérer les abonnements de l'utilisateur
         List<Subscription> subscriptions = subscriptionService.findByUserId(userId);
-
+        System.out.println("mes abonnements : "+subscriptions);
         // Extraire les IDs des thèmes auxquels l'utilisateur est déjà abonné
         List<Long> subscribedThemeIds = subscriptions.stream()
                 .map(Subscription::getThemeId)
                 .collect(Collectors.toList());
+        System.out.println(subscribedThemeIds);
+        // Récupérer les thèmes auxquels l'utilisateur n'est pas abonné
+        List<Theme> subscribedThemes;
 
-        // Récupérer tous les thèmes disponibles
-        List<Theme> allThemes = themeRepository.getThemes();
 
-        // Filtrer les thèmes pour exclure ceux déjà abonnés
-        List<Theme> unsubscribedThemes = allThemes.stream()
-                .filter(theme -> !subscribedThemeIds.contains(theme.getId()))
-                .collect(Collectors.toList());
+        subscribedThemes = themeRepository.findByIdIn(subscribedThemeIds);
+        System.out.println(subscribedThemes);
 
-        // Convertir les thèmes non abonnés en réponses (DTO)
-        return unsubscribedThemes.stream()
-                .map(theme -> new ThemeResponse(
-                        theme.getId(),
-                        theme.getTitle(),
-                        theme.getDescription()
-                ))
-                .collect(Collectors.toList());
+        return subscribedThemes;
     }
 
 
-    @DeleteMapping("/{subscriptionId}")
-    public ResponseEntity<?> unsubscribe(@PathVariable long subscriptionId) {
-        if (subscriptionService.findById(subscriptionId).isPresent()) {
-            subscriptionService.delete(subscriptionId);
-            return ResponseEntity.ok().build();
+    @DeleteMapping("/{themeId}/{userId}")
+    public ResponseEntity<?> unsubscribe(@PathVariable long themeId, @PathVariable Long userId) {
+        Subscription subscription = subscriptionService.findSubscriptionByThemeIdAndUserId(themeId,userId);
+            if(subscription != null) {
+                subscriptionService.delete(subscription.getId());
+                return ResponseEntity.ok().build();
+            }
+        return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.notFound().build();
 
-    }
+
+
 }

@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
-      this.isMainPage = this.router.url === '/'; // Remplacez "/main" par le chemin de votre page
+      this.isMainPage = this.router.url === '/' || this.router.url === '/login' || this.router.url === '/register'; // Remplacez "/main" par le chemin de votre page
     });
   }
 }

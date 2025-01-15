@@ -1,3 +1,23 @@
 button{
     background-color: #7d31c5;
 }
+
+.arrow{
+    position: fixed;
+    font-size: 40px;
+    width:auto;
+    height: auto;
+    margin-top: -170px;
+    margin-left: 20px;
+}
+
+@media (min-width: 768px) { 
+    .arrow{
+        position: fixed;
+        font-size: 40px;
+        width: auto;
+        height: auto;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+ }

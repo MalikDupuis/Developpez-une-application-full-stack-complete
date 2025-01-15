@@ -25,9 +25,6 @@ export class HeaderComponent implements OnInit {
     
   }
 
-  public getInfo(){
-    console.log(this.sessionService.sessionInformation$)
-  }
   
   menuOpen = false;
 

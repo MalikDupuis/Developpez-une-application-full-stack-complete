@@ -1,19 +1,19 @@
 package com.openclassrooms.mddapi.response;
 
-import com.openclassrooms.mddapi.models.Theme;
-import lombok.AllArgsConstructor;
+import com.openclassrooms.mddapi.models.Commentaire;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 public class ArticleResponse {
-    private long themeId;
+    private String theme;
     private String title;
     private String author;
     private String content;
     private Date created;
+    private List<Commentaire> comments;
 }

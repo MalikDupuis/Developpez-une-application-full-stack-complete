@@ -1,4 +1,24 @@
-<div class="flex justify-center items-center mt-40">
+<div class="hidden md:block relative">
+  <!-- Logo -->
+  <div class="flex justify-between items-center p-4 border-b border-gray-300">
+    <img class="h-10" src="assets/logo.png" alt="logo" />
+  </div>
+</div>
+
+<div class="md:hidden">
+  <!-- Logo -->
+  <div class="flex justify-center items-center p-4 ">
+    <img class="h-40" src="assets/logo.png" alt="logo" />
+  </div>
+</div>
+<a
+        routerLink="/"
+        routerLinkActive="text-purple-600"
+        
+      >
+        <mat-icon class="arrow">arrow_back</mat-icon>
+        </a>
+<div class="flex justify-center items-center md:mt-28">
     <div class="w-96">
       <h1 class="text-2xl text-center mb-8">Inscription</h1>
       <app-error-message [errorMessage]="errorMessage"></app-error-message>

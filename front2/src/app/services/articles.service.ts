@@ -22,7 +22,7 @@ export class ArticleService {
 
   public getById(articleId: string): Observable<Article> {
     console.log(`${this.pathService}/detail/${articleId}`)
-    return this.httpClient.get<Article>(`${this.pathService}/detail/${articleId}`);
+    return this.httpClient.get<Article>(`/${this.pathService}/detail/${articleId}`);
   }
 
   public getAll(userId: number): Observable<Article[]> {

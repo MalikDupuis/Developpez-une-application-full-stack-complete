@@ -1,2 +1,62 @@
-<p>article-detail works!</p>
-{{art.title}}
+
+<div *ngIf="article$ | async as article; else loading" class="p-6 max-w-4xl mx-auto">
+  <div class="flex gap-6">
+  <a
+  routerLink="/articles"
+  routerLinkActive="text-purple-600"
+  
+>
+  <mat-icon class="arrow">arrow_back</mat-icon>
+  </a>
+      <h1 class="text-2xl font-bold mb-4">{{ article.title }}</h1>
+    </div>
+    
+      <div class="flex gap-6 mb-6">
+        <p><span class="font-semibold"></span> {{ article.created }}</p>
+        <p><span class="font-semibold"></span> {{ article.author }}</p>
+        <p><span class="font-semibold"></span> {{ article.theme }}</p>
+        
+      </div>
+      <p class="mt-4 border-b pb-10 border-gray-950"><span class="font-semibold">Content :</span> {{ article.content }}</p>
+    
+      <h2 class="text-xl font-semibold mt-6 mb-4">Commentaires</h2>
+      <div>
+        <div *ngIf="article.comments && article.comments.length > 0; else noComments">
+          <div
+            *ngFor="let comment of article.comments"
+            class="flex items-start space-x-4  p-4 rounded-lg mb-4"
+          >
+            <div>
+              <p class="font-medium text-gray-800">{{ comment.author }}</p>
+            </div>
+            <div class="bg-gray-100 w-full h-40 rounded-lg">
+              
+              <p class="text-gray-600 ">{{ comment.content }}</p>
+            </div>
+          </div>
+        </div>
+    
+        <ng-template #noComments>
+          <p class="text-gray-600">Aucun commentaire pour cet article.</p>
+        </ng-template>
+      </div>
+    
+      <div class="mt-6 flex items-center space-x-4">
+        <textarea
+          
+          placeholder="Écrivez ici votre commentaire"
+          class="flex-grow border border-gray-300 rounded-lg px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+        ></textarea>
+        <button
+          (click)="addComment()"
+          class="bg-purple-600 hover:bg-purple-700 text-white font-medium p-3 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500"
+        >
+          ➤
+        </button>
+      </div>
+    </div>
+    
+    <ng-template #loading>
+      <p class="text-gray-500">Chargement des données de l'article...</p>
+    </ng-template>
+    

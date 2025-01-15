@@ -9,5 +9,7 @@ public class ThemeService {
     @Autowired
     private ThemeRepository themeRepository;
 
-
+    public String getThemeTitleById(long id) {
+        return themeRepository.findById(id);
+    }
 }

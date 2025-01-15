@@ -63,7 +63,7 @@ export class ThemesComponent implements OnInit {
   subscribe() {
     if (this.subscriptionRequest.themeId != -1) {
       this.subscriptionService.subscribe(this.subscriptionRequest).subscribe({
-        next: () => console.log('Participation réussie'),
+        next: () => window.location.reload(),
         error: (err) => console.error('Erreur lors de la participation', err),
       });
     } else {
