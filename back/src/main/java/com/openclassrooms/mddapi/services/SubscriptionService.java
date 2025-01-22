@@ -31,4 +31,6 @@ public class SubscriptionService {
     public Subscription findSubscriptionByThemeIdAndUserId(long themeId, long userId) {
         return subscriptionRepository.findByThemeIdAndUserId(themeId,userId);
     }
+
+
 }

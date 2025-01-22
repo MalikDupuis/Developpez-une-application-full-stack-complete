@@ -1,13 +1,9 @@
 package com.openclassrooms.mddapi.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-
-import jakarta.persistence.Entity;
 
 
 @Entity
@@ -19,6 +15,7 @@ public class User {
     private Long id;
 
     @NonNull
+    @Column(unique = true)
     private String email;
 
     @NonNull

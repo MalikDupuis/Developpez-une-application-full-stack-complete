@@ -5,6 +5,7 @@ import { User } from '../interfaces/user.interface';
 import { ArticleRequest } from '../interfaces/articleRequest.interface';
 import { Article } from '../interfaces/article.interface';
 import { MessageResponse } from '../interfaces/messageResponse.interface';
+import { Comments } from '../interfaces/comments.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,7 @@ export class ArticleService {
   public getAll(userId: number): Observable<Article[]> {
     return this.httpClient.get<Article[]>(`${this.pathService}/${userId}`);
   }
+
+  
 
 }

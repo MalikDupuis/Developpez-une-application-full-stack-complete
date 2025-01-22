@@ -38,6 +38,9 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Email incorrect!!"));
         }
+        if (!userService.isValidPassword(loginRequest.getPassword())) {
+            return ResponseEntity.badRequest().body("Mot de passe invalide.");
+        }
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             return ResponseEntity
                     .badRequest()

@@ -15,4 +15,8 @@ public class CommentaireService {
     public List<Commentaire> getAllCommentairesByArticleId(long articleId) {
         return commentaireRepository.findByArticleId(articleId);
     }
+
+    public void saveCommentaire(Commentaire commentaire) {
+        commentaireRepository.save(commentaire);
+    }
 }

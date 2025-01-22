@@ -10,6 +10,7 @@ import com.openclassrooms.mddapi.response.JwtResponse;
 import com.openclassrooms.mddapi.response.MessageResponse;
 import com.openclassrooms.mddapi.services.ArticleService;
 import com.openclassrooms.mddapi.services.CommentaireService;
+import com.openclassrooms.mddapi.services.SubscriptionService;
 import com.openclassrooms.mddapi.services.ThemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +27,7 @@ public class ArticleController {
     private ArticleService articleService;
 
     @Autowired
-    private ArticleRepository articleRepository;
-
-    @Autowired
-    private SubscriptionRepository subscriptionRepository;
+    private SubscriptionService subscriptionService;
 
     @Autowired
     private CommentaireService commentaireService;
@@ -42,7 +40,7 @@ public class ArticleController {
         System.out.println("User ID: " + userId);
 
         // Récupérer les abonnements de l'utilisateur
-        List<Subscription> subscriptions = subscriptionRepository.findByUserId(userId);
+        List<Subscription> subscriptions = subscriptionService.findByUserId(userId);
         System.out.println("Subscriptions: " + subscriptions);
 
         // Extraire les IDs des thèmes des abonnements
@@ -52,7 +50,7 @@ public class ArticleController {
         System.out.println("Theme IDs: " + themeIds);
 
         // Récupérer et retourner les articles correspondant aux IDs des thèmes
-        List<Article> articles = articleRepository.findByThemeIdIn(themeIds);
+        List<Article> articles = articleService.findByThemeIdIn(themeIds);
         System.out.println("Articles: " + articles);
 
         return articles;
@@ -62,7 +60,7 @@ public class ArticleController {
     @GetMapping("/detail/{articleId}")
     public ResponseEntity<ArticleResponse> getArticleById(@PathVariable Long articleId) {
         System.out.println("articleId :" + articleId);
-        Article article = articleRepository.findById(articleId).orElse(null);
+        Article article = articleService.findById(articleId);
         if (article == null) {
             return ResponseEntity.notFound().build();
         }

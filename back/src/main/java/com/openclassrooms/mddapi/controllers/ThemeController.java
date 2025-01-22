@@ -4,6 +4,7 @@ import com.openclassrooms.mddapi.models.Subscription;
 import com.openclassrooms.mddapi.models.Theme;
 import com.openclassrooms.mddapi.repository.SubscriptionRepository;
 import com.openclassrooms.mddapi.repository.ThemeRepository;
+import com.openclassrooms.mddapi.services.SubscriptionService;
 import com.openclassrooms.mddapi.services.ThemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +19,15 @@ import java.util.stream.Collectors;
 public class ThemeController {
 
     @Autowired
-    private SubscriptionRepository subscriptionRepository;
+    private SubscriptionService subscriptionService;
 
     @Autowired
-    private ThemeRepository themeRepository;
+    private ThemeService themeService;
 
     @GetMapping("/{userId}")
     public List<Theme> getUnsubscribedThemes(@PathVariable Long userId) {
         // Récupérer les abonnements de l'utilisateur
-        List<Subscription> subscriptions = subscriptionRepository.findByUserId(userId);
+        List<Subscription> subscriptions = subscriptionService.findByUserId(userId);
         System.out.println("mes abonnements : "+subscriptions);
         // Extraire les IDs des thèmes auxquels l'utilisateur est déjà abonné
         List<Long> subscribedThemeIds = subscriptions.stream()
@@ -37,7 +38,7 @@ public class ThemeController {
         List<Theme> unsubscribedThemes;
 
 
-            unsubscribedThemes = themeRepository.findByIdNotIn(subscribedThemeIds);
+            unsubscribedThemes = themeService.findByIdNotIn(subscribedThemeIds);
         System.out.println(unsubscribedThemes);
 
         return unsubscribedThemes;

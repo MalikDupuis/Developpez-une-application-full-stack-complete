@@ -24,4 +24,19 @@ public class UserService {
     public void save(User user) {
         userRepository.save(user);
     }
+
+    public boolean isValidPassword(String password) {
+        if (password == null || password.isEmpty()) {
+            return false; // Mot de passe requis
+        }
+
+        // Vérifie les règles
+        boolean hasMinLength = password.length() >= 8;
+        boolean hasUppercase = password.matches(".*[A-Z].*");
+        boolean hasLowercase = password.matches(".*[a-z].*");
+        boolean hasDigit = password.matches(".*[0-9].*");
+        boolean hasSpecialChar = password.matches(".*[!@#$%^&*(),.?\":{}|<>].*");
+
+        return hasMinLength && hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
+    }
 }

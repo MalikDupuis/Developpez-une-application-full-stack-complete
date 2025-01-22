@@ -23,7 +23,7 @@ public class SubscriptionController {
     private SubscriptionService subscriptionService;
 
     @Autowired
-    private ThemeRepository themeRepository;
+    private ThemeService themeService;
 
     @PostMapping()
     public ResponseEntity<?> subscribe(@RequestBody SubscriptionRequest subscriptionRequest) {
@@ -49,7 +49,7 @@ public class SubscriptionController {
         List<Theme> subscribedThemes;
 
 
-        subscribedThemes = themeRepository.findByIdIn(subscribedThemeIds);
+        subscribedThemes = themeService.findByIdIn(subscribedThemeIds);
         System.out.println(subscribedThemes);
 
         return subscribedThemes;

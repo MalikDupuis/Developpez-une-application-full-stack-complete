@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { RegisterRequest } from '../../interfaces/registerRequest.interface';
 import { SessionInformation } from '../../interfaces/sessionInformation.interface';
@@ -51,8 +51,12 @@ export class RegisterComponent implements OnInit {
           '',
           [
             Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(40)
+    Validators.maxLength(40),
+    Validators.minLength(8),
+    Validators.pattern(/[0-9]/), 
+    Validators.pattern(/[a-z]/), 
+    Validators.pattern(/[A-Z]/), 
+    Validators.pattern(/[!@#$%^&*(),.?":{}|<>]/), 
           ]
         ]
       });
@@ -80,5 +84,6 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+
 
 }
