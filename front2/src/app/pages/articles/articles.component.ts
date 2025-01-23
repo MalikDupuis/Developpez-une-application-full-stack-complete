@@ -18,7 +18,7 @@ import { SessionService } from '../../services/session.service';
 })
 export class ArticlesComponent implements OnInit {
 
-  public articles$!: Observable<Article[]> | null;
+  public articles$!: Observable<Article[]> ;
   public sessionInformation$: Observable<SessionInformation | null>;
 
   constructor(

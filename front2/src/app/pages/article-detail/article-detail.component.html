@@ -12,7 +12,7 @@
     </div>
     
       <div class="flex gap-6 mb-6">
-        <p><span class="font-semibold"></span> {{ article.created }}</p>
+        <p><span class="font-semibold"></span> {{ article.created | date: 'dd/MM/yyyy'}}</p>
         <p><span class="font-semibold"></span> {{ article.author }}</p>
         <p><span class="font-semibold"></span> {{ article.theme }}</p>
         
