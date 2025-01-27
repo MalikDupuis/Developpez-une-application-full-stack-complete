@@ -25,6 +25,12 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public String getAuthorNameById(long id) {
+        User user = userRepository.findById(id).orElse(null);
+        assert user != null;
+        return user.getNom();
+    }
+
     public boolean isValidPassword(String password) {
         if (password == null || password.isEmpty()) {
             return false; // Mot de passe requis

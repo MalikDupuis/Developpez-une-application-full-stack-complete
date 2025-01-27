@@ -1,3 +1,4 @@
+<div class="flex flex-col sm:flex-row justify-center sm:justify-between items-center sm:items-start space-y-4 sm:space-y-0">
 <button 
   class="mt-10 mx-auto block rounded-md bg-indigo-600 p-2 text-white sm:ml-6 sm:mx-0" 
   mat-flat-button 
@@ -5,6 +6,8 @@
   Créer un article
 </button>
 
+<a class="font-bold mr-16 mt-20" (click)="sortArticlesByDate()">Trier par <mat-icon>arrow_downward</mat-icon></a>
+</div>
 
 <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 p-4 justify-center items-center">
     <app-article

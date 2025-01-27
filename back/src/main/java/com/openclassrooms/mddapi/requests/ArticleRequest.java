@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class ArticleRequest {
     private String title;
-    private String author;
+    private long authorId;
     private long themeId;
     private String content;
 

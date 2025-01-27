@@ -1,22 +1,22 @@
 package com.openclassrooms.mddapi.controllers;
 
+import com.openclassrooms.mddapi.mapper.CommentMapper;
 import com.openclassrooms.mddapi.models.*;
 import com.openclassrooms.mddapi.repository.ArticleRepository;
 import com.openclassrooms.mddapi.repository.SubscriptionRepository;
 import com.openclassrooms.mddapi.requests.ArticleRequest;
 import com.openclassrooms.mddapi.requests.RegisterRequest;
 import com.openclassrooms.mddapi.response.ArticleResponse;
+import com.openclassrooms.mddapi.response.CommentsResponse;
 import com.openclassrooms.mddapi.response.JwtResponse;
 import com.openclassrooms.mddapi.response.MessageResponse;
-import com.openclassrooms.mddapi.services.ArticleService;
-import com.openclassrooms.mddapi.services.CommentaireService;
-import com.openclassrooms.mddapi.services.SubscriptionService;
-import com.openclassrooms.mddapi.services.ThemeService;
+import com.openclassrooms.mddapi.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -34,6 +34,9 @@ public class ArticleController {
 
     @Autowired
     private ThemeService themeService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/{userId}")
     public List<Article> getArticlesBySubscription(@PathVariable Long userId) {
@@ -64,30 +67,37 @@ public class ArticleController {
         if (article == null) {
             return ResponseEntity.notFound().build();
         }
+        User user = userService.findByID(article.getAuthorId()).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
         String theme = themeService.getThemeTitleById(article.getThemeId());
         System.out.println("theme : " + theme);
         List<Commentaire> comments = commentaireService.getAllCommentairesByArticleId(articleId);
+        List<CommentsResponse> responses = comments.stream()
+                .map(commentaire -> {
+                    String authorName = userService.getAuthorNameById(commentaire.getAuthorId());
+                    return CommentMapper.toResponse(commentaire, authorName);
+                })
+                .toList();
         ArticleResponse articleResponse = new ArticleResponse();
         articleResponse.setTitle(article.getTitle());
         articleResponse.setContent(article.getContent());
         articleResponse.setTheme(theme);
-        articleResponse.setAuthor(article.getAuthor());
+        articleResponse.setAuthor(user.getNom());
         articleResponse.setCreated(article.getCreated());
-        articleResponse.setComments(comments);
+        articleResponse.setComments(responses);
         return ResponseEntity.ok(articleResponse);
     }
 
     @PostMapping()
     public ResponseEntity<?> createArticle(@RequestBody ArticleRequest articleRequest) {
         System.out.println(articleRequest.getThemeId());
-        if (articleRequest == null) {
-            return ResponseEntity.badRequest().body("Invalid request");
-        }
         Article article = new Article();
         article.setTitle(articleRequest.getTitle());
         article.setContent(articleRequest.getContent());
         article.setThemeId(articleRequest.getThemeId());
-        article.setAuthor(articleRequest.getAuthor());
+        article.setAuthorId(articleRequest.getAuthorId());
         articleService.save(article);
         return ResponseEntity.ok().body(new MessageResponse("Article created successfully"));
     }

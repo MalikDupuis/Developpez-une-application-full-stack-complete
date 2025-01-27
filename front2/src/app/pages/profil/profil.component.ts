@@ -16,6 +16,7 @@ import { Theme } from '../../interfaces/theme.interface';
 import { SubscriptionService } from '../../services/subscription.service';
 import { SubscriptionResponse } from '../../interfaces/SubscriptionResponse.interface';
 import { SubscriptionRequest } from '../../interfaces/subscriptionRequest.interface';
+import { TokenRequest } from '../../interfaces/tokenRequest.interface';
 
 @Component({
   selector: 'app-profil',
@@ -84,9 +85,12 @@ export class ProfilComponent implements OnInit {
       const profilRequest = this.form.value as ProfilRequest;
       profilRequest.userId = this.userId;
       this.userService.update(profilRequest).subscribe({
-        next: (response: MessageResponse) => {
-          alert(response.message)
-        },
+        next: (response: TokenRequest) => {
+                this.sessionService.logIn(response);
+                this.router.navigate(['/profil']).then(() => {
+                  window.location.reload();
+                });
+              },
         error: error => {
           this.errorMessage = error?.error?.message || 'Une erreur est survenue lors du changement.';
         }

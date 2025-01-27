@@ -25,7 +25,7 @@ public class CommentController {
             return ResponseEntity.badRequest().body("Invalid request");
         }
         Commentaire commentaire = new Commentaire();
-        commentaire.setAuthor(commentRequest.getAuthor());
+        commentaire.setAuthorId(commentRequest.getAuthorId());
         commentaire.setArticleId(commentRequest.getArticleId());
         commentaire.setContent(commentRequest.getContent());
         commentaireService.saveCommentaire(commentaire);

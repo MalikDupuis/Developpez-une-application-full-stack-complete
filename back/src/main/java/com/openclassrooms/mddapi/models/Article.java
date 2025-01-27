@@ -17,7 +17,7 @@ public class Article {
     private Long id;
     private long themeId;
     private String title;
-    private String author;
+    private long authorId;
     private String content;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

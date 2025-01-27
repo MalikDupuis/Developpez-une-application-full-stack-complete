@@ -16,7 +16,7 @@ public class Commentaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private long articleId;
-    private String author;
+    private long authorId;
     private String content;
 
 }

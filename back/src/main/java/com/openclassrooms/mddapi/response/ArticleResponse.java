@@ -15,5 +15,5 @@ public class ArticleResponse {
     private String author;
     private String content;
     private Date created;
-    private List<Commentaire> comments;
+    private List<CommentsResponse> comments;
 }

@@ -3,7 +3,9 @@ package com.openclassrooms.mddapi.controllers;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.requests.ArticleRequest;
 import com.openclassrooms.mddapi.requests.ProfilRequest;
+import com.openclassrooms.mddapi.response.JwtResponse;
 import com.openclassrooms.mddapi.response.MessageResponse;
+import com.openclassrooms.mddapi.services.JWTService;
 import com.openclassrooms.mddapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private JWTService jwtService;
+
     @PutMapping()
     public ResponseEntity<?> updateUser(@RequestBody ProfilRequest profilRequest) {
         Optional<User> optionalUser = userService.findByID(profilRequest.getUserId());
@@ -29,7 +34,9 @@ public class UserController {
         optionalUser.ifPresent(user -> user.setNom(profilRequest.getNom()));
         optionalUser.ifPresent(user -> user.setEmail(profilRequest.getEmail()));
         optionalUser.ifPresent(user -> userService.save(user));
-        return ResponseEntity.ok().body(new MessageResponse("User updated successfully"));
+        String token = jwtService.generateToken(profilRequest.getEmail());
+        JwtResponse tokenResponse = new JwtResponse(token);
+        return ResponseEntity.ok(tokenResponse);
 
     }
 }

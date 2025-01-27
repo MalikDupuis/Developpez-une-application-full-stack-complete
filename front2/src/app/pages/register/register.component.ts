@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
     this.authService.register(registerRequest).subscribe({
       next: (response: TokenRequest) => {
         this.sessionService.logIn(response);
-        this.router.navigate(['/']);
+        this.router.navigate(['/articles']);
       },
       error: error => {
   this.errorMessage = error?.error?.message || 'Une erreur est survenue lors de l’inscription.';

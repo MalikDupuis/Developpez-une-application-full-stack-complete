@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { ProfilRequest } from '../interfaces/profilRequest.interface';
 import { MessageResponse } from '../interfaces/messageResponse.interface';
+import { TokenRequest } from '../interfaces/tokenRequest.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class UserService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public update(profilRequest: ProfilRequest): Observable<MessageResponse> {
-    return this.httpClient.put<MessageResponse>(`${this.pathService}`, profilRequest);
+  public update(profilRequest: ProfilRequest): Observable<TokenRequest> {
+    return this.httpClient.put<TokenRequest>(`${this.pathService}`, profilRequest);
   }
 
 

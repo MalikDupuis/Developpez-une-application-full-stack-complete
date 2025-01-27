@@ -25,6 +25,7 @@ export class CreateArticleComponent implements OnInit {
   public errorMessage = "";
   public sessionInformation$: Observable<SessionInformation | null>;
   private nom!: string;
+  private userId! : number;
 
   constructor(
     private articleService: ArticleService,
@@ -63,6 +64,7 @@ export class CreateArticleComponent implements OnInit {
             if (sessionInfo) {
               // Mettre à jour l'ID utilisateur et initialiser subscriptionRequest
               this.nom = sessionInfo.nom;
+              this.userId = sessionInfo.userId;
             }
           });
   }
@@ -75,7 +77,7 @@ export class CreateArticleComponent implements OnInit {
       return;
     }
     const articleRequest = this.form.value as ArticleRequest;
-    articleRequest.author = this.nom;
+    articleRequest.authorId = this.userId;
     this.articleService.create(articleRequest).subscribe({
       next: (response) => {
         alert(response.message);

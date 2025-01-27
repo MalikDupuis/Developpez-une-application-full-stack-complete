@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, filter, Observable } from 'rxjs';
 import { Article } from '../../interfaces/article.interface';
 import { ArticleService } from '../../services/articles.service';
 import { CommentService } from '../../services/comment.service';
@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { Comments } from '../../interfaces/comments.interface';
+import { SessionInformation } from '../../interfaces/sessionInformation.interface';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-article-detail',
@@ -19,6 +21,7 @@ import { Comments } from '../../interfaces/comments.interface';
 })
 export class ArticleDetailComponent implements OnInit {
 
+  public sessionInformation$: Observable<SessionInformation | null>;
   private articleSubject = new BehaviorSubject<Article | null>(null);
 public article$ = this.articleSubject.asObservable();
   public newCommentContent = '';
@@ -26,21 +29,34 @@ public article$ = this.articleSubject.asObservable();
   public comment: Comments = { // Initialisez correctement l'objet comment
     articleId: -1,
     content: '',
-    author: '',
+    authorId: -1,
   };
 
-  constructor(private articlesService: ArticleService,
+  constructor(private sessionService: SessionService,
+    private articlesService: ArticleService,
     private commentService: CommentService
-  ) { }
+  ) { 
+    this.sessionInformation$ = this.sessionService.sessionInformation$;
+  }
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
-      this.articlesService.getById(params['articleId']).subscribe((article) => {
-        this.comment.articleId = params['articleId'];
-        this.comment.author = "malik";
-        this.articleSubject.next(article);
-      });
-    });
+    this.sessionInformation$
+              .pipe(filter((sessionInfo) => sessionInfo !== null)) // Filtrer pour ignorer les valeurs nulles
+              .subscribe((sessionInfo) => {
+                if (sessionInfo) {
+                  
+                  this.route.params.subscribe((params) => {
+                    this.articlesService.getById(params['articleId']).subscribe((article) => {
+                      this.comment.articleId = params['articleId'];
+                      this.comment.author = sessionInfo.nom;
+                      this.comment.authorId = sessionInfo.userId;
+                      this.articleSubject.next(article);
+                    });
+                  });
+
+                }
+              });
+    
   }
   
     
