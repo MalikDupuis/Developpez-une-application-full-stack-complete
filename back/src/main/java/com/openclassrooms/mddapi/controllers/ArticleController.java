@@ -40,21 +40,15 @@ public class ArticleController {
 
     @GetMapping("/{userId}")
     public List<Article> getArticlesBySubscription(@PathVariable Long userId) {
-        System.out.println("User ID: " + userId);
 
-        // Récupérer les abonnements de l'utilisateur
         List<Subscription> subscriptions = subscriptionService.findByUserId(userId);
-        System.out.println("Subscriptions: " + subscriptions);
 
-        // Extraire les IDs des thèmes des abonnements
         List<Long> themeIds = subscriptions.stream()
                 .map(Subscription::getThemeId)
                 .collect(Collectors.toList());
-        System.out.println("Theme IDs: " + themeIds);
 
-        // Récupérer et retourner les articles correspondant aux IDs des thèmes
         List<Article> articles = articleService.findByThemeIdIn(themeIds);
-        System.out.println("Articles: " + articles);
+
 
         return articles;
     }
@@ -62,7 +56,7 @@ public class ArticleController {
 
     @GetMapping("/detail/{articleId}")
     public ResponseEntity<ArticleResponse> getArticleById(@PathVariable Long articleId) {
-        System.out.println("articleId :" + articleId);
+
         Article article = articleService.findById(articleId);
         if (article == null) {
             return ResponseEntity.notFound().build();
@@ -72,7 +66,7 @@ public class ArticleController {
             return ResponseEntity.notFound().build();
         }
         String theme = themeService.getThemeTitleById(article.getThemeId());
-        System.out.println("theme : " + theme);
+
         List<Commentaire> comments = commentaireService.getAllCommentairesByArticleId(articleId);
         List<CommentsResponse> responses = comments.stream()
                 .map(commentaire -> {
@@ -92,7 +86,7 @@ public class ArticleController {
 
     @PostMapping()
     public ResponseEntity<?> createArticle(@RequestBody ArticleRequest articleRequest) {
-        System.out.println(articleRequest.getThemeId());
+
         Article article = new Article();
         article.setTitle(articleRequest.getTitle());
         article.setContent(articleRequest.getContent());

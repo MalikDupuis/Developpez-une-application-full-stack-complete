@@ -26,20 +26,16 @@ public class ThemeController {
 
     @GetMapping("/{userId}")
     public List<Theme> getUnsubscribedThemes(@PathVariable Long userId) {
-        // Récupérer les abonnements de l'utilisateur
+
         List<Subscription> subscriptions = subscriptionService.findByUserId(userId);
-        System.out.println("mes abonnements : "+subscriptions);
-        // Extraire les IDs des thèmes auxquels l'utilisateur est déjà abonné
         List<Long> subscribedThemeIds = subscriptions.stream()
                 .map(Subscription::getThemeId)
                 .collect(Collectors.toList());
-        System.out.println(subscribedThemeIds);
-        // Récupérer les thèmes auxquels l'utilisateur n'est pas abonné
+
         List<Theme> unsubscribedThemes;
 
 
             unsubscribedThemes = themeService.findByIdNotIn(subscribedThemeIds);
-        System.out.println(unsubscribedThemes);
 
         return unsubscribedThemes;
     }

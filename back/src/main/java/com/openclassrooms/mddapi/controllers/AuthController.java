@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -30,7 +32,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> getToken(@RequestBody LoginRequest loginRequest) {
-        System.out.println("token");
+
         User user = userService.findByEmail(loginRequest.getEmail());
 
         if(user == null) {
@@ -55,7 +57,13 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+        if (userService.existsByEmail(registerRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email déjà existante!!"));
+        }
         User user = new User();
+        
         user.setEmail(registerRequest.getEmail());
         String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());
         user.setPassword(encodedPassword);

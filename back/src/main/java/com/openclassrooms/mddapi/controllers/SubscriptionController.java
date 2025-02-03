@@ -27,7 +27,6 @@ public class SubscriptionController {
 
     @PostMapping()
     public ResponseEntity<?> subscribe(@RequestBody SubscriptionRequest subscriptionRequest) {
-        System.out.println(subscriptionRequest);
         Subscription subscription = new Subscription();
         subscription.setUserId(subscriptionRequest.getUserId());
         subscription.setThemeId(subscriptionRequest.getThemeId());
@@ -37,21 +36,17 @@ public class SubscriptionController {
 
     @GetMapping("/{userId}")
     public List<Theme> getUnsubscribedThemes(@PathVariable Long userId) {
-        // Récupérer les abonnements de l'utilisateur
+
         List<Subscription> subscriptions = subscriptionService.findByUserId(userId);
-        System.out.println("mes abonnements : "+subscriptions);
-        // Extraire les IDs des thèmes auxquels l'utilisateur est déjà abonné
+
         List<Long> subscribedThemeIds = subscriptions.stream()
                 .map(Subscription::getThemeId)
                 .collect(Collectors.toList());
-        System.out.println(subscribedThemeIds);
-        // Récupérer les thèmes auxquels l'utilisateur n'est pas abonné
+
         List<Theme> subscribedThemes;
 
 
         subscribedThemes = themeService.findByIdIn(subscribedThemeIds);
-        System.out.println(subscribedThemes);
-
         return subscribedThemes;
     }
 
